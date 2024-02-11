@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      
+        <style>
+          *{
+            background-color: rgb(191, 205, 231);
+          }
+          body{
+            padding-left: 40px;
+            padding-top: 20px;
+          }
+          img{
+
+          }
+          #input-file{
+            display: none;
+          }
+          label{
+            display: block;
+            width: 60px;
+            height: 55px;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px solid rgb(12, 11, 11);
+            border-radius: 10px;
+            box-shadow: inset 0 0 0px black,0 0 20px black;
+            border-radius: 10px;
+            
+          }
+          .y{
+            display: flex;
+            justify-content: space-around;
+        
+          }
+        </style>
+    </head>
+    
+<body>
+  <a href="Home.html"><p style="margin-left: 40px;"><i class="fa-solid fa-arrow-left" style="font-size: 45px;"></i></p></a>
+
+  <div class="y">
+    <label for="input-file"><span>&nbsp;<i class="fa-solid fa-plus" style="font-size: 50px; color: rgb(199, 48, 124);text-align: center; padding-left: 3px; " id="add"></i></span></label>
+    <input type="file"id="input-file" accept="image/jpeg,image/png,image/jpg">   
+</div>
+<div class="row row-cols-md-4 d-flex"style="display: flex; margin-top:30px">
+  <div class="col">
+      <img src="g31.jpg" style="width: 250px; height: 270px;border-radius: 20px;margin: 30px;box-shadow:  0 0 0px black,0 0 20px black; border: 2px solid white;">
+  </div>
+  <div  class="col">
+    <img src="mar.jpg" style="width: 250px; height: 270px;border-radius: 20px;margin: 30px;box-shadow:  0 0 0px black,0 0 20px black; border: 2px solid white;">
+  </div>
+  <div class="col">
+    <img src="g9.jpg" style="width: 250px; height: 270px;border-radius: 20px;margin: 30px;box-shadow:  0 0 0px black,0 0 20px black; border: 2px solid white;">
+  </div>
+  <div class="col">
+    <img src="g4.jpg" style="width: 250px; height: 270px;border-radius: 20px;margin: 30px;box-shadow:  0 0 0px black,0 0 20px black; border: 2px solid white;">
+  </div>
+</div>
+    <div id="x" style="display: flex;">
+      <div class="col" id="co">
+          <img src="user2.jpg" style="width: 250px; height: 270px;border-radius: 20px;margin: 30px;box-shadow:  0 0 0px black,0 0 20px black; border: 2px solid white;">
+      </div>  
+    </div>
+    <script>
+        let inputFile=document.getElementById("input-file");
+          inputFile.onchange=function(){
+        let x=document.getElementById("x");
+        let div=document.createElement("div");
+        div.setAttribute("id","co");
+        x.appendChild(div);
+       let co=document.getElementById("co");
+       let pic=document.createElement("img");
+            pic.src=URL.createObjectURL(inputFile.files[0]);
+            co.appendChild(pic);
+            pic.style.width="250px";
+            pic.style.height="270px";
+            pic.style.borderRadius="20px";
+            pic.style.margin="30px";
+            pic.style.border="2px solid white";
+            pic.style.boxShadow="inset 0 0 0px black,0 0 20px black";
+        }
+        
+        
+    </script>
+</body>
+</html>

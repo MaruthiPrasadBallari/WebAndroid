@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+<div>
+  <h1>
+    Example: Storing Images in Local Storage
+  </h1>
+  <div>
+    <input type="file" id="thumbnail">
+</div
+</div>
+    <script>
+        const input = document.getElementById('thumbnail');
+
+        input.addEventListener('change', (event) => {
+            const images = event.target.files;
+        
+            for (const image of images) {
+                const reader = new FileReader();
+        
+                reader.readAsDataURL(image);
+        
+                reader.addEventListener('load', () => {
+                    const imagesArray = localStorage.getItem('images');
+                    let images = [];
+        
+                    if (imagesArray) {
+                        images = [...JSON.parse(imagesArray)];
+        
+                        images.push(reader.result);
+                    } else {
+                        images.push(reader.result);
+                    }
+        
+                    localStorage.setItem('images', JSON.stringify(images));
+                });
+            }
+        });
+        const images = JSON.parse(localStorage.getItem('images'));
+
+images.forEach((image) => {
+    alert("hii");
+});
+    </script>
+
+  </body>
+</html>

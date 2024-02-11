@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Art and Culture Quiz</title>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            *{
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+    box-sizing: border-box;
+}
+body{
+    background-image: url(h3.jpg);
+    background-size:cover ;
+}
+.app{
+    background: transparent;
+    width: 100%;
+    border: 2px solid whitesmoke;
+    max-width: 600px;
+    margin: 100px auto 0;
+    margin-top: 50px;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: inset 0 0 0px black,0 0 20px white;
+    
+}
+.app h1{
+    font-weight: 25px;
+    color: #fff;
+    font-weight:600 ; 
+    border-bottom:1px solid #f3efef ;
+    padding-bottom:15px ;
+    margin-bottom: 10px;
+}
+.quiz{
+    padding: 20px 0;
+    color: #fff;
+
+}
+.quiz h2{
+    color: #fff;
+    font-size: 18px;
+    color: #001e4d;
+    font-weight: 600;
+}
+#question{
+    color: #fff;
+    margin-bottom: 20px;
+}
+.btn{
+    background: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    width: 100%;
+    border: 1px solid #222;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: left;
+    color: black;
+    border-radius: 4px;
+    cursor: pointer;
+    
+}
+.btn:hover:not([disabled]){
+    background: #222;
+    color: #fff;
+}
+.btn:disabled{
+    cursor: no-drop;
+}
+#next-btn{
+    background: #001e4d;
+    color: #fff;
+    font-weight: 500;
+    width: 150px;
+    border: 1px solid white;
+    box-shadow: inset 0 0 0px black,0 0 20px white;
+    padding: 10px;
+    margin: 20px auto 0;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+}
+.correct{
+    background: #9aeabc;
+}
+.incorrect{
+    background: #ff9393;
+}
+        </style>
+    </head>
+    <body>
+        <div style="margin-top: 30px; margin-left: 100px;">
+            <a href="test_u.html"><img src="Lf.png" width="65px" height="50px"></a>   
+        </div>
+        <div class="app">
+            <h1>Art and Culture Quiz</h1>
+            <div class="quiz">
+                <h2 id="question">Question goes here</h2>
+                <div id="answer-buttons">
+                    <button class="btn">Answer 1</button>
+                    <button class="btn">Answer 2</button>
+                    <button class="btn">Answer 3</button>
+                    <button class="btn">Answer 4</button>
+                </div>
+                <button id="next-btn">Next</button>
+            </div>
+        </div>
+        <script>
+        const questions=[
+    {
+        question: "Which is the host of the ‘ASEAN India Music Festival’?",
+        answers: [
+            { text: "Mumbai",correct: false},
+            { text: "New Delhi",correct: true},
+            { text: "Gandhi Nagar",correct: false},
+            { text: "Chennai",correct: false}
+        ]
+    },
+    {
+        question: "‘SARANG’ is an Indian Film Festival organised in which country?",
+        answers: [
+            { text: "China",correct: false},
+            { text: "Australia",correct: false},
+            { text: "South Korea",correct: true},
+            { text: "Germany",correct: false}
+        ]
+    },
+    {
+        question: "Buddhavanam, a Buddhist Heritage Theme Park, is located in which state?",
+        answers: [
+            { text: "Bihar",correct: false},
+            { text: "Uttarakhand",correct: false},
+            { text: "Telangana",correct: true},
+            { text: "Assam",correct: false}
+        ]
+    },
+    {
+        question: "Nyingma sect, which was seen in the news, is associated with which religion?",
+        answers: [
+            { text: "Buddhism",correct: true},
+            { text: "Jainism",correct: false},
+            { text: "Sikhism",correct: false},
+            { text: "Hinduism",correct: false}
+        ]
+    }
+    ,
+    {
+        question: "‘Wangala Festival’ or ‘100 drums festival’ is the most popular festival of which state?",
+        answers: [
+            { text: "Meghalaya",correct: true},
+            { text: "Assam",correct: false},
+            { text: "West Bengal",correct: false},
+            { text: "Arunachal Pradesh",correct: false}
+        ]
+    }
+];
+const questionE=document.getElementById("question");
+const answerB=document.getElementById("answer-buttons");
+const nextB=document.getElementById("next-btn");
+
+let currentQI=0;
+let score=0;
+function startQuiz(){
+    currentQI=0;
+    score=0;
+    nextB.innerHTML="Next";
+    showQ();
+}
+function showQ(){
+    resetState();
+    let currentQ=questions[currentQI];
+    
+    let currentN=currentQI+1;
+    questionE.innerHTML=currentN + "." + currentQ.question;
+
+    currentQ.answers.forEach(answer =>{
+        const button =document.createElement("button");
+        button.innerHTML=answer.text;
+        button.classList.add("btn");
+        answerB.appendChild(button);
+        if(answer.correct){
+            button.dataset.correct=answer.correct;
+        }
+        button.addEventListener("click",selectAnswer);
+    });
+}
+
+function resetState(){
+    nextB.style.display = "none"
+    while(answerB.firstChild){
+        answerB.removeChild(answerB.firstChild);
+    }
+}
+
+ function selectAnswer(e){
+    const selectedBtn =e.target;
+    const isCorrect=selectedBtn.dataset.correct === "true";
+    if(isCorrect){
+        selectedBtn.classList.add("correct");
+        score++;
+    }
+    else{
+        selectedBtn.classList.add("incorrect");
+    }
+    Array.from(answerB.children).forEach(button =>{
+        if(button.dataset.correct === "true"){
+            button.classList.add("correct");
+        }
+        button.disabled=true;
+    });
+    nextB.style.display="block";
+}
+
+function showScore(){
+    resetState();
+    questionE.innerHTML=`you scored ${score} out of ${questions.length}!`;
+    nextB.innerHTML="play Again";
+    nextB.style.display="block";
+}
+function handleNextButton(){
+    currentQI++;
+    if(currentQI<questions.length){
+        showQ();
+    }
+    else{
+        showScore();
+    }
+}
+nextB.addEventListener("click",()=>{
+    if(currentQI<questions.length){
+        handleNextButton();
+    }
+    else{
+        startQuiz();
+    }
+});
+startQuiz();
+        </script>
+    </body>
+</html>
